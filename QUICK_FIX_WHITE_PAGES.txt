@@ -1,0 +1,55 @@
+═══════════════════════════════════════════════════════════════
+   🔧 QUICK FIX FOR WHITE PAGES ON VERCEL
+═══════════════════════════════════════════════════════════════
+
+PROBLEM: White/empty pages on Vercel
+
+SOLUTION:
+
+1. VERCEL SETTINGS - Main Website:
+   ───────────────────────────────────────────────────────────
+   Settings → General:
+   - Framework: Vite
+   - Root Directory: / (empty)
+   - Build Command: npm run build
+   - Output Directory: dist
+   - Install Command: npm install
+
+2. VERCEL SETTINGS - Admin Panel:
+   ───────────────────────────────────────────────────────────
+   Settings → General:
+   - Framework: Vite
+   - Root Directory: admin
+   - Build Command: cd admin && npm run build
+   - Output Directory: admin/dist
+   - Install Command: npm install
+
+3. ENVIRONMENT VARIABLES (Both):
+   ───────────────────────────────────────────────────────────
+   Settings → Environment Variables:
+   VITE_API_URL = https://your-railway-url.railway.app
+   
+   (Get Railway URL after deploying backend)
+
+4. REDEPLOY:
+   ───────────────────────────────────────────────────────────
+   - Deployments → ... → Redeploy
+   - Wait 2-3 minutes
+
+5. CHECK BUILD LOGS:
+   ───────────────────────────────────────────────────────────
+   - Click on deployment
+   - Check "Build Logs"
+   - Should see "Build successful"
+
+═══════════════════════════════════════════════════════════════
+
+IF STILL WHITE:
+
+1. Check browser console (F12) for errors
+2. Verify build succeeded in logs
+3. Try hard refresh (Ctrl+Shift+R)
+4. Check Network tab for 404s
+
+═══════════════════════════════════════════════════════════════
+

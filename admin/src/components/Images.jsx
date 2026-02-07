@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import './Images.css'
 
-const Images = ({ token, API_URL }) => {
+const Images = ({ token, API_URL: propAPI_URL }) => {
+  const API_URL = propAPI_URL || (import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : 'http://localhost:5000/api')
   const [images, setImages] = useState([])
   const [loading, setLoading] = useState(true)
   const [selectedFile, setSelectedFile] = useState(null)

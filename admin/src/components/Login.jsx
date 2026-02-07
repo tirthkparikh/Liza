@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import './Login.css'
 
-const Login = ({ onLogin, API_URL }) => {
+const Login = ({ onLogin, API_URL: propAPI_URL }) => {
+  const API_URL = propAPI_URL || (import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : 'http://localhost:5000/api')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')

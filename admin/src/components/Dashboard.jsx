@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import './Dashboard.css'
 
-const Dashboard = ({ onLogout, token, API_URL }) => {
+const Dashboard = ({ onLogout, token, API_URL: propAPI_URL }) => {
+  const API_URL = propAPI_URL || (import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : 'http://localhost:5000/api')
   return (
     <div className="dashboard-container">
       <nav className="sidebar">

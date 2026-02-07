@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { getReminders, createReminder } from '../utils/api'
 import './Dashboard.css'
 
 const Dashboard = () => {
@@ -10,47 +11,92 @@ const Dashboard = () => {
   const [emailSubject, setEmailSubject] = useState('')
   const [emailBody, setEmailBody] = useState('')
   const [showEmailForm, setShowEmailForm] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const loadReminders = () => {
+    const loadReminders = async () => {
+      try {
+        // Try API first
+        const apiReminders = await getReminders()
+        if (apiReminders && apiReminders.length > 0) {
+          setReminders(apiReminders)
+          setLoading(false)
+          return
+        }
+      } catch (error) {
+        console.log('API not available, using local storage')
+      }
+      
+      // Fallback to local storage
       const saved = localStorage.getItem('liza-reminders')
       if (saved) setReminders(JSON.parse(saved))
+      setLoading(false)
     }
     loadReminders()
   }, [])
 
-  const handleSetDate = (e) => {
+  const handleSetDate = async (e) => {
     e.preventDefault()
     if (dateTime) {
       const newReminder = {
-        id: Date.now(),
         type: 'date',
         datetime: dateTime,
-        title: 'Date with My Love',
-        createdAt: new Date().toISOString()
+        title: 'Date with My Love'
       }
-      const updated = [...reminders, newReminder]
-      setReminders(updated)
-      localStorage.setItem('liza-reminders', JSON.stringify(updated))
-      alert('Date set successfully! 💕')
-      setDateTime('')
+      
+      try {
+        // Try API first
+        await createReminder(newReminder)
+        const updated = await getReminders()
+        setReminders(updated)
+        alert('Date set successfully! 💕')
+        setDateTime('')
+      } catch (error) {
+        // Fallback to local storage
+        const localReminder = {
+          id: Date.now(),
+          ...newReminder,
+          createdAt: new Date().toISOString()
+        }
+        const updated = [...reminders, localReminder]
+        setReminders(updated)
+        localStorage.setItem('liza-reminders', JSON.stringify(updated))
+        alert('Date set successfully! 💕')
+        setDateTime('')
+      }
     }
   }
 
-  const handleSetReminder = (e) => {
+  const handleSetReminder = async (e) => {
     e.preventDefault()
     if (reminder) {
       const newReminder = {
-        id: Date.now(),
         type: 'reminder',
-        text: reminder,
-        createdAt: new Date().toISOString()
+        title: reminder,
+        description: reminder
       }
-      const updated = [...reminders, newReminder]
-      setReminders(updated)
-      localStorage.setItem('liza-reminders', JSON.stringify(updated))
-      alert('Reminder set! 💖')
-      setReminder('')
+      
+      try {
+        // Try API first
+        await createReminder(newReminder)
+        const updated = await getReminders()
+        setReminders(updated)
+        alert('Reminder set! 💖')
+        setReminder('')
+      } catch (error) {
+        // Fallback to local storage
+        const localReminder = {
+          id: Date.now(),
+          type: 'reminder',
+          text: reminder,
+          createdAt: new Date().toISOString()
+        }
+        const updated = [...reminders, localReminder]
+        setReminders(updated)
+        localStorage.setItem('liza-reminders', JSON.stringify(updated))
+        alert('Reminder set! 💖')
+        setReminder('')
+      }
     }
   }
 

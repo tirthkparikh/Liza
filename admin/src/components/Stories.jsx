@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import './Stories.css'
 
-const Stories = ({ token, API_URL }) => {
+const Stories = ({ token, API_URL: propAPI_URL }) => {
+  const API_URL = propAPI_URL || (import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : 'http://localhost:5000/api')
   const [stories, setStories] = useState([])
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
