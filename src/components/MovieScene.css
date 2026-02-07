@@ -1,0 +1,47 @@
+.movie-scene {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.movie-content {
+  text-align: center;
+  color: white;
+  max-width: 800px;
+  padding: 40px;
+}
+
+.scene-gif {
+  width: 400px;
+  height: 400px;
+  margin: 0 auto 40px;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(255, 23, 68, 0.5);
+}
+
+.scene-text {
+  font-size: 3em;
+  text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8);
+  color: #ff1744;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .scene-gif {
+    width: 300px;
+    height: 300px;
+  }
+
+  .scene-text {
+    font-size: 2em;
+  }
+}
+

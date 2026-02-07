@@ -1,0 +1,28 @@
+{
+  "name": "liza-love-project",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "server:dev": "cd server && npm run dev",
+    "server:install": "cd server && npm install",
+    "admin:dev": "cd admin && npm run dev",
+    "admin:install": "cd admin && npm install",
+    "install:all": "npm install && npm run server:install && npm run admin:install"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.20.0",
+    "framer-motion": "^10.16.16"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.0.8"
+  }
+}
+

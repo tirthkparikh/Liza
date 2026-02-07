@@ -1,0 +1,93 @@
+═══════════════════════════════════════════════════════════════
+   🚀 LIZA LOVE WEBSITE - DEPLOYMENT INSTRUCTIONS
+═══════════════════════════════════════════════════════════════
+
+STEP 1: GET MONGODB URL (2 minutes)
+───────────────────────────────────────────────────────────────
+1. Go to: https://www.mongodb.com/cloud/atlas/register
+2. Sign up (use Google - fastest)
+3. Create FREE cluster
+4. Create database user (save password!)
+5. Allow all IPs (0.0.0.0/0)
+6. Get connection string
+7. Replace <password> with your password
+8. Add /liza-love before the ?
+
+Your URL format:
+mongodb+srv://username:password@cluster.mongodb.net/liza-love?retryWrites=true&w=majority
+
+STEP 2: PUSH TO GITHUB (1 minute)
+───────────────────────────────────────────────────────────────
+git init
+git add .
+git commit -m "Liza Love Website"
+git remote add origin https://github.com/YOUR_USERNAME/liza-love.git
+git push -u origin main
+
+STEP 3: DEPLOY BACKEND - RAILWAY (3 minutes)
+───────────────────────────────────────────────────────────────
+1. Go to: https://railway.app
+2. Sign up with GitHub
+3. "New Project" → "Deploy from GitHub repo"
+4. Select your repository
+5. Settings → Root Directory: server
+6. Variables → Add:
+   MONGODB_URI = (your MongoDB URL from Step 1)
+   JWT_SECRET = (any random string)
+   NODE_ENV = production
+7. Copy the deployment URL
+
+STEP 4: DEPLOY FRONTEND - VERCEL (2 minutes)
+───────────────────────────────────────────────────────────────
+1. Go to: https://vercel.com
+2. Sign up with GitHub
+3. "New Project" → Import repository
+4. Root Directory: / (default)
+5. Build Command: npm run build
+6. Output Directory: dist
+7. Environment Variable:
+   VITE_API_URL = (your Railway URL from Step 3)
+8. Deploy!
+9. Copy the URL
+
+STEP 5: DEPLOY ADMIN - VERCEL (2 minutes)
+───────────────────────────────────────────────────────────────
+1. In Vercel, click "New Project" again
+2. Import same repository
+3. Root Directory: admin
+4. Build Command: npm run build
+5. Output Directory: dist
+6. Environment Variable:
+   VITE_API_URL = (your Railway URL)
+7. Deploy!
+8. Copy the URL
+
+STEP 6: UPDATE BACKEND CORS (30 seconds)
+───────────────────────────────────────────────────────────────
+1. Go back to Railway
+2. Variables tab
+3. Add:
+   FRONTEND_URL = (your frontend Vercel URL)
+   ADMIN_URL = (your admin Vercel URL)
+4. Railway auto-redeploys
+
+STEP 7: TEST (30 seconds)
+───────────────────────────────────────────────────────────────
+1. Visit frontend URL
+2. Visit admin URL
+3. Register admin account (first time)
+4. Login and manage content!
+
+═══════════════════════════════════════════════════════════════
+   ✅ DONE! Your website is LIVE!
+═══════════════════════════════════════════════════════════════
+
+All services are FREE:
+- Railway: 500 hours/month
+- Vercel: Unlimited
+- MongoDB Atlas: 512MB
+
+Total Cost: $0/month! 💕
+
+═══════════════════════════════════════════════════════════════
+

@@ -1,0 +1,21 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  # This workflow is optional - Vercel and Railway auto-deploy from GitHub
+  # You can use this for custom CI/CD if needed
+  
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: npm install
+      - run: cd server && npm install
+      - run: cd admin && npm install
+
