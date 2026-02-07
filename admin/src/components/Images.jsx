@@ -4,7 +4,7 @@ import axios from 'axios'
 import './Images.css'
 
 const Images = ({ token, API_URL: propAPI_URL }) => {
-  const API_URL = propAPI_URL || (import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : 'http://localhost:5000/api')
+  const API_URL = propAPI_URL || (import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : 'http://localhost:5001/api')
   const [images, setImages] = useState([])
   const [loading, setLoading] = useState(true)
   const [selectedFile, setSelectedFile] = useState(null)
@@ -105,7 +105,7 @@ const Images = ({ token, API_URL: propAPI_URL }) => {
           ) : (
             images.map((image) => (
               <div key={image._id} className="image-card">
-                <img src={`http://localhost:5000${image.url}`} alt={image.originalName} />
+                <img src={`http://localhost:5001${image.url}`} alt={image.originalName} />
                 <div className="image-info">
                   <p>{image.originalName}</p>
                   <p className="folder-tag">{image.folder}</p>

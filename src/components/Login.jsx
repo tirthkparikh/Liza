@@ -23,7 +23,7 @@ const Login = ({ setIsAuthenticated }) => {
       setTimeout(() => {
         setShowError(false)
         setError(false)
-      }, 5000)
+      }, 5001)
     }
   }
 

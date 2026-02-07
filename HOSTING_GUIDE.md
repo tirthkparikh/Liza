@@ -54,7 +54,7 @@ git push -u origin main
    MONGODB_URI=your-mongodb-url-here
    JWT_SECRET=any-random-secret-string
    NODE_ENV=production
-   PORT=5000
+   PORT=5001
    FRONTEND_URL=https://your-frontend.vercel.app (update later)
    ```
 8. Railway auto-deploys!

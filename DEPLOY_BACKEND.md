@@ -15,7 +15,7 @@
 MONGODB_URI=mongodb+srv://liza_admin:liza12345@cluster-1.16ck1li.mongodb.net/liza-love?appName=Cluster-1
 JWT_SECRET=your-random-secret-key-here-change-this
 NODE_ENV=production
-PORT=5000
+PORT=5001
 ```
 
 8. **Wait for deployment** (green checkmark)

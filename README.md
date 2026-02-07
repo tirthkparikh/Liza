@@ -35,7 +35,7 @@ npm install
 cp .env.example .env
 # Add your MongoDB URL and other credentials
 npm run dev
-# Runs on http://localhost:5000
+# Runs on http://localhost:5001
 ```
 
 3. **Admin Panel:**

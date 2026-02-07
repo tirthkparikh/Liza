@@ -44,7 +44,7 @@ mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/liza-love?retryWrites
    MONGODB_URI=your-mongodb-connection-string
    JWT_SECRET=generate-a-random-secret-key
    NODE_ENV=production
-   PORT=5000
+   PORT=5001
    FRONTEND_URL=https://your-frontend-url.vercel.app
    EMAIL_USER=your-email@gmail.com
    EMAIL_PASS=your-gmail-app-password
@@ -108,12 +108,12 @@ Or update `FRONTEND_URL` in Railway environment variables.
 
 Update `src/utils/api.js` (create this file):
 ```javascript
-export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001/api'
 ```
 
 Update `admin/src/App.jsx`:
 ```javascript
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001/api'
 ```
 
 ## 🔄 Alternative Hosting Options

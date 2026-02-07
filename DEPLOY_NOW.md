@@ -52,7 +52,7 @@ git push -u origin main
 MONGODB_URI=your-mongodb-url-from-step-1
 JWT_SECRET=any-random-string-like-mysecretkey123
 NODE_ENV=production
-PORT=5000
+PORT=5001
 ```
 
 8. **Copy the URL** (e.g., `https://liza-love-production.up.railway.app`)

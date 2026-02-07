@@ -12,7 +12,7 @@ cp .env.example .env
 npm run dev
 ```
 
-Server runs on: `http://localhost:5000`
+Server runs on: `http://localhost:5001`
 
 ### 2. Frontend Setup (Main Website)
 
@@ -53,7 +53,7 @@ Admin Panel runs on: `http://localhost:3001`
    ```
    GOOGLE_CLIENT_ID=your-client-id
    GOOGLE_CLIENT_SECRET=your-client-secret
-   GOOGLE_REDIRECT_URI=http://localhost:5000/api/auth/google/callback
+   GOOGLE_REDIRECT_URI=http://localhost:5001/api/auth/google/callback
    ```
 
 ### SMS/Phone (Twilio)
