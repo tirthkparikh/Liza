@@ -110,24 +110,6 @@ const Dashboard = () => {
     setEmailBody('')
   }
 
-  const [phoneNumber, setPhoneNumber] = useState(() => {
-    const saved = localStorage.getItem('liza-phone-number')
-    return saved || ''
-  })
-
-  const handleSetPhone = () => {
-    const phone = prompt('Enter your phone number (with country code, e.g., +1234567890):')
-    if (phone) {
-      localStorage.setItem('liza-phone-number', phone)
-      setPhoneNumber(phone)
-      alert('Phone number saved! 💕')
-    }
-  }
-
-  const handleCall = () => {
-    window.location.href = `tel:${phoneNumber}`
-  }
-
   const deleteReminder = (id) => {
     const updated = reminders.filter(r => r.id !== id)
     setReminders(updated)
@@ -165,19 +147,7 @@ const Dashboard = () => {
             transition={{ delay: 0.2 }}
           >
             <h2>Quick Actions</h2>
-            {!phoneNumber && (
-              <p className="setup-note">⚠️ Set your phone number first!</p>
-            )}
             <div className="action-buttons">
-              <motion.button
-                className="action-btn call-btn"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={phoneNumber ? handleCall : handleSetPhone}
-                title={phoneNumber ? `Call ${phoneNumber}` : 'Set phone number first'}
-              >
-                📞 {phoneNumber ? 'Call Me' : 'Set Phone Number'}
-              </motion.button>
               <motion.button
                 className="action-btn email-btn"
                 whileHover={{ scale: 1.05 }}
@@ -303,52 +273,93 @@ const Dashboard = () => {
             </motion.div>
           )}
 
+          {/* Upcoming Dates Preview */}
+          <motion.div
+            className="dashboard-card dates-preview-card"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+          >
+            <div className="card-header">
+              <h2>📅 Upcoming Dates</h2>
+              <Link to="/dates" className="view-all-link">
+                View All →
+              </Link>
+            </div>
+            <div className="dates-preview-list">
+              {reminders.filter(r => r.type === 'date' && new Date(r.datetime) > new Date()).length === 0 ? (
+                <p className="empty-state">No upcoming dates. Plan something special! 💕</p>
+              ) : (
+                reminders
+                  .filter(r => r.type === 'date' && new Date(r.datetime) > new Date())
+                  .sort((a, b) => new Date(a.datetime) - new Date(b.datetime))
+                  .slice(0, 3)
+                  .map((date, index) => (
+                    <motion.div
+                      key={date.id || date._id}
+                      className="date-preview-item"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 * index }}
+                    >
+                      <div className="date-preview-icon">💕</div>
+                      <div className="date-preview-content">
+                        <strong>{date.title || 'Date with My Love'}</strong>
+                        <p className="date-preview-time">
+                          {new Date(date.datetime).toLocaleDateString('en-US', {
+                            weekday: 'short',
+                            month: 'short',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                          })}
+                        </p>
+                        <span className="days-until">
+                          {getDaysUntil(date.datetime)} days to go! ✨
+                        </span>
+                      </div>
+                    </motion.div>
+                  ))
+              )}
+            </div>
+          </motion.div>
+
           {/* Reminders List */}
           <motion.div
             className="dashboard-card reminders-card"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
+            transition={{ delay: 0.6 }}
           >
             <h2>📋 Your Reminders</h2>
             <div className="reminders-list">
-              {reminders.length === 0 ? (
+              {reminders.filter(r => r.type !== 'date').length === 0 ? (
                 <p className="empty-state">No reminders yet. Set one above! 💕</p>
               ) : (
-                reminders.map((rem) => (
-                  <motion.div
-                    key={rem.id}
-                    className="reminder-item"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                  >
-                    <div className="reminder-content">
-                      {rem.type === 'date' ? (
-                        <>
-                          <span className="reminder-icon">💕</span>
-                          <div>
-                            <strong>Date: {new Date(rem.datetime).toLocaleString()}</strong>
-                            <p>{rem.title}</p>
-                          </div>
-                        </>
-                      ) : (
-                        <>
-                          <span className="reminder-icon">⏰</span>
-                          <div>
-                            <p>{rem.text}</p>
-                            <small>{new Date(rem.createdAt).toLocaleDateString()}</small>
-                          </div>
-                        </>
-                      )}
-                    </div>
-                    <button
-                      className="delete-btn"
-                      onClick={() => deleteReminder(rem.id)}
+                reminders
+                  .filter(r => r.type !== 'date')
+                  .map((rem) => (
+                    <motion.div
+                      key={rem.id || rem._id}
+                      className="reminder-item"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
                     >
-                      ✕
-                    </button>
-                  </motion.div>
-                ))
+                      <div className="reminder-content">
+                        <span className="reminder-icon">⏰</span>
+                        <div>
+                          <p>{rem.title || rem.text}</p>
+                          <small>{new Date(rem.createdAt || rem.datetime).toLocaleDateString()}</small>
+                        </div>
+                      </div>
+                      <button
+                        className="delete-btn"
+                        onClick={() => deleteReminder(rem.id || rem._id)}
+                      >
+                        ✕
+                      </button>
+                    </motion.div>
+                  ))
               )}
             </div>
           </motion.div>
@@ -367,6 +378,14 @@ const Dashboard = () => {
       </motion.div>
     </div>
   )
+}
+
+const getDaysUntil = (datetime) => {
+  const now = new Date()
+  const date = new Date(datetime)
+  const diffTime = date - now
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+  return diffDays
 }
 
 export default Dashboard

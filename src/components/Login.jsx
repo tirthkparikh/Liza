@@ -16,6 +16,7 @@ const Login = ({ setIsAuthenticated }) => {
     
     if (username === 'liza' && password === 'iLoveLiza') {
       setIsAuthenticated(true)
+      localStorage.setItem('isAuthenticated', 'true')
       navigate('/')
     } else {
       setError(true)

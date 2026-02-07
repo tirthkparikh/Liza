@@ -1,0 +1,128 @@
+.love-notifications-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+}
+
+.love-notification {
+  background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 100%);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 10px 40px rgba(214, 51, 132, 0.3);
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid rgba(214, 51, 132, 0.2);
+}
+
+.love-notification.story {
+  background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%);
+  border-color: rgba(255, 107, 107, 0.3);
+}
+
+.love-notification.blog {
+  background: linear-gradient(135deg, #f0fff4 0%, #e0ffe5 100%);
+  border-color: rgba(72, 187, 120, 0.3);
+}
+
+.notification-icon {
+  font-size: 30px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.notification-content {
+  flex: 1;
+}
+
+.notification-content h4 {
+  margin: 0 0 5px 0;
+  color: #d63384;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.notification-title {
+  margin: 0 0 5px 0;
+  color: #333;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.notification-message {
+  margin: 0;
+  color: #666;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.notification-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #d63384;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.notification-close:hover {
+  background: rgba(214, 51, 132, 0.1);
+  transform: rotate(90deg);
+}
+
+.notification-hearts {
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+  opacity: 0.3;
+  font-size: 12px;
+}
+
+.notification-hearts span {
+  display: inline-block;
+  animation: float 3s ease-in-out infinite;
+}
+
+.notification-hearts span:nth-child(2) {
+  animation-delay: 1s;
+}
+
+.notification-hearts span:nth-child(3) {
+  animation-delay: 2s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@media (max-width: 768px) {
+  .love-notifications-container {
+    left: 10px;
+    right: 10px;
+    max-width: none;
+  }
+  
+  .love-notification {
+    padding: 15px;
+  }
+}

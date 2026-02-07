@@ -1,0 +1,436 @@
+.love-jar-container {
+  min-height: 100vh;
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 50%, #fd79a8 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.floating-hearts {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.floating-heart {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.love-jar-content {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.page-title {
+  font-size: 3em;
+  color: white;
+  text-align: center;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1.2em;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Jar Styles */
+.jar-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.jar-container.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-5deg); }
+  75% { transform: rotate(5deg); }
+}
+
+.jar {
+  position: relative;
+  width: 200px;
+  height: 250px;
+}
+
+.jar-lid {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 40px;
+  background: linear-gradient(135deg, #8b4513, #a0522d);
+  border-radius: 10px 10px 5px 5px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jar-emoji {
+  font-size: 1.5em;
+}
+
+.jar-body {
+  position: absolute;
+  top: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 200px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+  border-radius: 20px 20px 60px 60px;
+  border: 4px solid rgba(139, 69, 19, 0.3);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.notes-count {
+  text-align: center;
+  z-index: 2;
+}
+
+.count-number {
+  display: block;
+  font-size: 3em;
+  font-weight: bold;
+  color: #d63384;
+}
+
+.count-label {
+  color: #666;
+  font-size: 0.9em;
+}
+
+.jar-hearts {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.jar-heart {
+  position: absolute;
+  opacity: 0.6;
+}
+
+/* Action Buttons */
+.jar-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pick-btn {
+  background: linear-gradient(135deg, #9b59b6, #8e44ad);
+  color: white;
+}
+
+.pick-btn:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(155, 89, 182, 0.4);
+}
+
+.add-btn {
+  background: linear-gradient(135deg, #e91e63, #c2185b);
+  color: white;
+}
+
+.add-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(233, 30, 99, 0.4);
+}
+
+/* Form Overlay */
+.note-form-overlay,
+.selected-note-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.note-form {
+  background: white;
+  padding: 40px;
+  border-radius: 25px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.note-form h3 {
+  color: #d63384;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+.note-form textarea {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 15px;
+  font-size: 1em;
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+}
+
+.note-form textarea:focus {
+  outline: none;
+  border-color: #ff6b9d;
+}
+
+.char-count {
+  text-align: right;
+  color: #999;
+  font-size: 0.85em;
+  margin-top: 5px;
+}
+
+.author-select {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.author-select label {
+  color: #666;
+  font-weight: bold;
+}
+
+.author-select select {
+  flex: 1;
+  padding: 10px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 1em;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.save-btn {
+  flex: 1;
+  padding: 15px;
+  background: linear-gradient(135deg, #ff6b9d, #d63384);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.save-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.save-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cancel-btn {
+  flex: 1;
+  padding: 15px;
+  background: #f0f0f0;
+  color: #666;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Selected Note */
+.selected-note {
+  padding: 50px;
+  border-radius: 25px;
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+  color: white;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.delete-note-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 1.2em;
+  transition: all 0.3s ease;
+}
+
+.delete-note-btn:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.note-text {
+  font-size: 1.5em;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  font-style: italic;
+}
+
+.note-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9em;
+  opacity: 0.9;
+}
+
+/* Notes Preview */
+.notes-preview {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 25px;
+  margin-bottom: 30px;
+}
+
+.notes-preview h3 {
+  color: #d63384;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.note-preview {
+  padding: 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  color: white;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.preview-text {
+  margin: 0;
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+
+.preview-author {
+  font-size: 0.75em;
+  opacity: 0.9;
+  text-align: right;
+}
+
+/* Navigation */
+.navigation-buttons {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.nav-button {
+  display: inline-block;
+  padding: 15px 30px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #d63384;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: bold;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+  background: white;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 2.2em;
+  }
+  
+  .jar {
+    width: 150px;
+    height: 200px;
+  }
+  
+  .jar-body {
+    width: 140px;
+    height: 160px;
+  }
+  
+  .jar-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .notes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

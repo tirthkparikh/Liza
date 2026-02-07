@@ -10,10 +10,15 @@ const Dashboard = ({ onLogout, token, API_URL: propAPI_URL }) => {
           <h2>💕 Admin Panel</h2>
         </div>
         <ul className="nav-menu">
-          <li><Link to="/">📊 Dashboard</Link></li>
+          <li className="active"><Link to="/">📊 Dashboard</Link></li>
           <li><Link to="/images">🖼️ Images</Link></li>
-          <li><Link to="/blogs">📝 Blogs</Link></li>
+          <li><Link to="/blogs">📝 Love Letters</Link></li>
           <li><Link to="/stories">📖 Stories</Link></li>
+          <li><Link to="/dates">📅 Dates</Link></li>
+          <li><Link to="/lovejar">💝 Love Jar</Link></li>
+          <li><Link to="/letters">💌 Quick Message</Link></li>
+          <li><Link to="/games">🎮 Games</Link></li>
+          <li><Link to="/videocall">📹 Video Call</Link></li>
         </ul>
         <button className="logout-btn" onClick={onLogout}>
           Logout
@@ -40,6 +45,11 @@ const Dashboard = ({ onLogout, token, API_URL: propAPI_URL }) => {
             <h3>Stories</h3>
             <p className="stat-number">Our memories</p>
             <Link to="/stories" className="stat-link">View Stories →</Link>
+          </div>
+          <div className="stat-card">
+            <h3>Dates</h3>
+            <p className="stat-number">Plan special moments</p>
+            <Link to="/dates" className="stat-link">View Dates →</Link>
           </div>
         </div>
 

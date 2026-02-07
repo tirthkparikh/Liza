@@ -95,8 +95,17 @@ npm run dev
 ```
 MONGODB_URI=your-mongodb-connection-string
 JWT_SECRET=your-secret-key
+
+# Email Configuration (Required for notifications)
 EMAIL_USER=your-email@gmail.com
 EMAIL_PASS=your-app-password
+LOVER_EMAIL=liza@example.com
+EMAIL_FROM=Love Website <your-email@gmail.com>
+
+# Website URL (for email links)
+WEBSITE_URL=http://localhost:5173
+
+# Optional Services
 TWILIO_ACCOUNT_SID=your-twilio-sid
 TWILIO_AUTH_TOKEN=your-twilio-token
 TWILIO_PHONE_NUMBER=+1234567890
@@ -105,6 +114,13 @@ GOOGLE_CLIENT_SECRET=your-google-client-secret
 FRONTEND_URL=https://your-frontend-url.vercel.app
 ```
 
+### Setup Email Notifications
+1. Use a Gmail account
+2. Enable 2-Factor Authentication
+3. Generate an App Password
+4. Add credentials to `.env`
+5. Liza will receive beautiful emails when you create stories/blogs!
+
 ## 🔐 Admin Setup
 
 1. Deploy backend first
@@ -112,17 +128,27 @@ FRONTEND_URL=https://your-frontend-url.vercel.app
 3. Register admin account (first time only)
 4. Login and start managing content
 
+## ✨ New Features (Connected Experience)
+
+- 🔗 **Connected Admin & Website**: Stories and blogs created in admin panel automatically appear on the main website
+- 📧 **Automatic Email Notifications**: Liza receives beautiful email notifications when you add new stories or love messages
+- 🔔 **Real-time Notifications**: Toast notifications appear when new content is added
+- ✨ **New Content Badges**: "New" badges show on the Heart Map when there's fresh content
+- 💝 **Romantic Email Templates**: Beautiful, love-themed email designs
+
 ## 📦 Features
 
 - 💕 Romantic interactive games
 - 📸 Photo galleries
-- 📝 Blogs and stories
+- 📝 Blogs and stories (now connected to admin panel!)
+- 📖 Love story timeline (fetches from admin stories)
+- 💌 Love letters (fetches from admin blogs)
 - 📅 Calendar integration
-- 📧 Email functionality
+- 📧 Email functionality with automatic notifications
 - 📱 SMS/Phone calls
 - ⏰ Reminders system
 - 🎮 Love games
-- 💌 Love letters
+- 🔔 Real-time notification system
 
 ## 🛠️ Tech Stack
 

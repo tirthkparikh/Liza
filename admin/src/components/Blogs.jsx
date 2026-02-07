@@ -84,23 +84,28 @@ const Blogs = ({ token, API_URL: propAPI_URL }) => {
         <ul className="nav-menu">
           <li><Link to="/">📊 Dashboard</Link></li>
           <li><Link to="/images">🖼️ Images</Link></li>
-          <li><Link to="/blogs">📝 Blogs</Link></li>
+          <li className="active"><Link to="/blogs">📝 Love Letters</Link></li>
           <li><Link to="/stories">📖 Stories</Link></li>
+          <li><Link to="/dates">📅 Dates</Link></li>
+          <li><Link to="/lovejar">💝 Love Jar</Link></li>
+          <li><Link to="/letters">💌 Write to Liza</Link></li>
+          <li><Link to="/games">🎮 Games</Link></li>
+          <li><Link to="/videocall">📹 Video Call</Link></li>
         </ul>
       </nav>
 
       <main className="main-content">
         <div className="header-actions">
-          <h1>Blog Management 📝</h1>
-          <button onClick={() => { setShowForm(true); setEditingBlog(null); setFormData({ title: '', content: '', category: 'love', published: false }) }} className="add-btn">
-            + New Blog
+          <h1>Love Letters to Liza 💌</h1>
+          <button onClick={() => { setShowForm(true); setEditingBlog(null); setFormData({ title: '', content: '', category: 'love', published: true }) }} className="add-btn">
+            + Write Love Letter
           </button>
         </div>
 
         {showForm && (
           <div className="form-modal">
             <form onSubmit={handleSubmit} className="blog-form">
-              <h2>{editingBlog ? 'Edit Blog' : 'New Blog'}</h2>
+              <h2>{editingBlog ? 'Edit Love Letter' : 'Write a Love Letter to Liza'}</h2>
               <input
                 type="text"
                 placeholder="Title"
@@ -147,13 +152,24 @@ const Blogs = ({ token, API_URL: propAPI_URL }) => {
             <p>No blogs yet. Create one!</p>
           ) : (
             blogs.map((blog) => (
-              <div key={blog._id} className="blog-card">
-                <h3>{blog.title}</h3>
+              <div key={blog._id} className={`blog-card ${blog.createdBy === 'lover' ? 'from-lover' : ''}`}>
+                <div className="blog-header">
+                  <h3>{blog.title}</h3>
+                  {blog.createdBy === 'lover' && (
+                    <span className="author-badge from-liza">💕 From Liza</span>
+                  )}
+                  {blog.createdBy === 'admin' && (
+                    <span className="author-badge from-you">From You</span>
+                  )}
+                </div>
                 <p className="blog-content">{blog.content.substring(0, 150)}...</p>
                 <div className="blog-meta">
                   <span className="category">{blog.category}</span>
                   <span className={`status ${blog.published ? 'published' : 'draft'}`}>
                     {blog.published ? 'Published' : 'Draft'}
+                  </span>
+                  <span className="date">
+                    {new Date(blog.createdAt).toLocaleDateString()}
                   </span>
                 </div>
                 <div className="blog-actions">

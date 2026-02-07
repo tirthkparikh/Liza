@@ -3,164 +3,87 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import './Memories.css'
 
+const API_URL =
+  import.meta.env.VITE_API_URL
+    ? `${import.meta.env.VITE_API_URL}/api`
+    : 'http://localhost:5001/api'
+
 const Memories = () => {
-  const [selectedImage, setSelectedImage] = useState(null)
   const [images, setImages] = useState([])
+  const [selectedImage, setSelectedImage] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Get all Dubai images
-    const dubaiImages = [
-      'BFMJ2740', 'CGWZ3256', 'CKMV4869', 'FKND9979', 'FNLU7930', 'HNEW8061',
-      'IMG_0061', 'IMG_0191', 'IMG_0196', 'IMG_0197', 'IMG_0301', 'IMG_0302',
-      'IMG_0303', 'IMG_0333', 'IMG_0334', 'IMG_0361', 'IMG_0362', 'IMG_0380',
-      'IMG_0381', 'IMG_0772', 'IMG_0766', 'IMG_0996', 'IMG_E1168', 'IMG_E0302',
-      'IMG_1068', 'IMG_1040', 'IMG_0438', 'IMG_1054', 'IMG_0821', 'IMG_0835',
-      'IMG_1221', 'SVLM1691', 'TFZL3788', 'MVAL0248', 'SELZ6056', 'RXKG2236'
-    ]
-    
-    // Get all Mauritius images
-    const mauritiusImages = [
-      'IMG_8045', 'IMG_8046', 'IMG_8047', 'IMG_8048', 'IMG_8058', 'IMG_8059',
-      'IMG_8060', 'IMG_8064', 'IMG_8118', 'IMG_8119', 'IMG_8120', 'IMG_8132',
-      'IMG_8143', 'IMG_8364', 'IMG_8365', 'IMG_E8366', 'IMG_8689', 'IMG_8851',
-      'IMG_8925', 'IMG_8919', 'IMG_E8574', 'IMG_E8575', 'IMG_8918', 'IMG_E8993',
-      'IMG_8924', 'IMG_8844', 'IMG_E8367'
-    ]
-
-    // Create image objects with proper paths
-    const allImages = [
-      ...dubaiImages.map((name, i) => ({
-        id: `dubai-${i}`,
-        src: `/assets/images/Dubai/${name}.JPG`,
-        folder: 'dubai',
-        name: name
-      })),
-      ...mauritiusImages.map((name, i) => ({
-        id: `maur-${i}`,
-        src: `/assets/images/Maur/${name}.JPG`,
-        folder: 'mauritius',
-        name: name
-      })),
-      // Also include numbered images if they exist
-      ...Array.from({ length: 30 }, (_, i) => ({
-        id: `num-${i}`,
-        src: `/assets/images/${i + 1}.jpg`,
-        folder: 'mixed',
-        name: `${i + 1}`
-      }))
-    ]
-
-    // Shuffle array randomly
-    const shuffled = allImages.sort(() => Math.random() - 0.5)
-    setImages(shuffled)
+    fetchImages()
   }, [])
 
-  const openImage = (image) => {
-    setSelectedImage(image)
+  const fetchImages = async () => {
+    try {
+      const res = await fetch(`${API_URL}/images`)
+      if (!res.ok) throw new Error('Failed to fetch images')
+
+      const data = await res.json()
+
+      // shuffle images for random romantic feel 💕
+      const shuffled = data.sort(() => Math.random() - 0.5)
+      setImages(shuffled)
+    } catch (err) {
+      console.error('Failed to load memories:', err)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
     <div className="memories-container">
-      <div className="gif-background">
-        <img src="https://media.giphy.com/media/3o7aCTPPm4OHfRLSH6/giphy.gif" alt="romantic" className="bg-gif" />
-        <img src="https://media.giphy.com/media/l0MYC0LajbaPoEADu/giphy.gif" alt="hearts" className="bg-gif" />
-      </div>
+      <motion.h1
+        className="page-title"
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ type: 'spring', stiffness: 200 }}
+      >
+        Our Beautiful Memories 💕
+      </motion.h1>
 
-      <div className="hearts-background">
-        {[...Array(25)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="floating-heart"
-            style={{
-              position: 'absolute',
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              fontSize: `${Math.random() * 35 + 25}px`,
-            }}
-            animate={{
-              y: [0, -50, 0],
-              x: [0, Math.random() * 25 - 12.5, 0],
-              rotate: [0, 360],
-              opacity: [0.2, 0.9, 0.2],
-            }}
-            transition={{
-              duration: 4 + Math.random() * 3,
-              repeat: Infinity,
-              delay: Math.random() * 3,
-            }}
-          >
-            💕
-          </motion.div>
-        ))}
-      </div>
-
-      <motion.div
-        className="memories-content"
+      <motion.p
+        className="page-subtitle"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
+        transition={{ delay: 0.3 }}
       >
-        <motion.h1
-          className="page-title"
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ type: 'spring', stiffness: 200, delay: 0.2 }}
-        >
-          Our Beautiful Memories 💕
-        </motion.h1>
+        Every photo is a heartbeat we shared
+      </motion.p>
 
-        <motion.p
-          className="page-subtitle"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-        >
-          All our moments together - Click any photo to view full size
-        </motion.p>
-
+      {loading ? (
+        <p style={{ textAlign: 'center' }}>Loading memories…</p>
+      ) : (
         <div className="photo-gallery">
           {images.map((image, index) => (
             <motion.div
-              key={image.id}
+              key={image._id}
               className="photo-item"
-              initial={{ opacity: 0, scale: 0.8, rotate: Math.random() * 10 - 5 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ delay: index * 0.02 }}
-              whileHover={{ scale: 1.15, zIndex: 10, rotate: Math.random() * 5 - 2.5 }}
-              onClick={() => openImage(image)}
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: index * 0.03 }}
+              whileHover={{ scale: 1.15, zIndex: 10 }}
+              onClick={() => setSelectedImage(image)}
             >
               <img
-                src={image.src}
-                alt={`Memory ${index + 1}`}
-                onError={(e) => {
-                  // Try alternative extension
-                  const altSrc = image.src.replace('.JPG', '.jpg').replace('.jpg', '.JPG')
-                  if (e.target.src !== altSrc) {
-                    e.target.src = altSrc
-                  } else {
-                    e.target.style.display = 'none'
-                  }
-                }}
+                src={image.url}
+                alt={image.originalName || 'memory'}
+                loading="lazy"
               />
-              <div className="photo-overlay">
-                <span className="photo-heart">❤️</span>
-              </div>
+              <div className="photo-overlay">❤️</div>
             </motion.div>
           ))}
         </div>
+      )}
 
-        <motion.div
-          className="navigation-buttons"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-        >
-          <Link to="/" className="nav-button">
-            ← Back to Heart Map
-          </Link>
-        </motion.div>
-      </motion.div>
+      <Link to="/" className="nav-button">
+        ← Back to Heart Map
+      </Link>
 
+      {/* FULL IMAGE MODAL */}
       <AnimatePresence>
         {selectedImage && (
           <motion.div
@@ -171,20 +94,17 @@ const Memories = () => {
             onClick={() => setSelectedImage(null)}
           >
             <motion.img
-              src={selectedImage.src}
-              alt="Full size"
-              initial={{ scale: 0.5 }}
+              src={selectedImage.url}
+              alt="Full memory"
+              initial={{ scale: 0.6 }}
               animate={{ scale: 1 }}
-              exit={{ scale: 0.5 }}
+              exit={{ scale: 0.6 }}
               onClick={(e) => e.stopPropagation()}
-              onError={(e) => {
-                const altSrc = selectedImage.src.replace('.JPG', '.jpg').replace('.jpg', '.JPG')
-                if (e.target.src !== altSrc) {
-                  e.target.src = altSrc
-                }
-              }}
             />
-            <button className="close-button" onClick={() => setSelectedImage(null)}>
+            <button
+              className="close-button"
+              onClick={() => setSelectedImage(null)}
+            >
               ✕
             </button>
           </motion.div>

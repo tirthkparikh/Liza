@@ -5,6 +5,12 @@ import Dashboard from './components/Dashboard'
 import Images from './components/Images'
 import Blogs from './components/Blogs'
 import Stories from './components/Stories'
+import Dates from './components/Dates'
+import LoveJar from './components/LoveJar'
+import VideoCall from './components/VideoCall'
+import Letters from './components/Letters'
+import Games from './components/Games'
+import TicTacToe from './components/TicTacToe'
 import './App.css'
 
 const API_URL = import.meta.env.VITE_API_URL 
@@ -75,6 +81,54 @@ function App() {
           element={
             isAuthenticated ? 
             <Stories token={token} API_URL={API_URL} /> : 
+            <Navigate to="/login" />
+          } 
+        />
+        <Route 
+          path="/dates" 
+          element={
+            isAuthenticated ? 
+            <Dates token={token} API_URL={API_URL} /> : 
+            <Navigate to="/login" />
+          } 
+        />
+        <Route 
+          path="/lovejar" 
+          element={
+            isAuthenticated ? 
+            <LoveJar token={token} API_URL={API_URL} /> : 
+            <Navigate to="/login" />
+          } 
+        />
+        <Route 
+          path="/videocall" 
+          element={
+            isAuthenticated ? 
+            <VideoCall token={token} API_URL={API_URL} /> : 
+            <Navigate to="/login" />
+          } 
+        />
+        <Route 
+          path="/letters" 
+          element={
+            isAuthenticated ? 
+            <Letters token={token} API_URL={API_URL} /> : 
+            <Navigate to="/login" />
+          } 
+        />
+        <Route 
+          path="/games" 
+          element={
+            isAuthenticated ? 
+            <Games token={token} API_URL={API_URL} /> : 
+            <Navigate to="/login" />
+          } 
+        />
+        <Route 
+          path="/games/tictactoe" 
+          element={
+            isAuthenticated ? 
+            <TicTacToe token={token} API_URL={API_URL} /> : 
             <Navigate to="/login" />
           } 
         />
