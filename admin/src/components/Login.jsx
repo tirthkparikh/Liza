@@ -8,6 +8,7 @@ const Login = ({ onLogin, API_URL: propAPI_URL }) => {
 const API_BASE_URL = RAW_BASE_URL.replace(/\/$/, '')
 console.log(API_BASE_URL,RAW_BASE_URL);
   const API_URL = propAPI_URL || (API_BASE_URL ? `${API_BASE_URL}/api` : 'http://localhost:5001/api')
+  console.log(API_URL)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
