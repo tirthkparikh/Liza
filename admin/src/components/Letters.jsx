@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { getBlogs, createBlog } from '../utils/api'
+import '../App.css'
 import './Letters.css'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001'

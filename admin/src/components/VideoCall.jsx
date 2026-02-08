@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { io } from 'socket.io-client'
+import '../App.css'
 import './VideoCall.css'
 
 const VideoCall = ({ token, API_URL: propAPI_URL }) => {

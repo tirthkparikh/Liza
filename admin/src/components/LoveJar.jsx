@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import '../App.css'
 import './LoveJar.css'
 
 const LoveJar = ({ token, API_URL: propAPI_URL }) => {

@@ -2,6 +2,25 @@
 
 A beautiful, romantic full-stack website with admin panel, email, SMS, and Google Calendar integration.
 
+## 🚀 Auto-Deployment Setup (NEW!)
+
+**Push code → Auto builds → Auto deploys → Live in 2 minutes!**
+
+### ⚡ Quick Start:
+```bash
+./setup-deployment.sh
+```
+
+Then follow: **[QUICK_START_DEPLOYMENT.md](QUICK_START_DEPLOYMENT.md)**
+
+### 📚 Documentation:
+- **[Quick Start](QUICK_START_DEPLOYMENT.md)** - Get auto-deploy running in 5 minutes
+- **[Complete Guide](DEPLOYMENT_COMPLETE_GUIDE.md)** - Full detailed instructions
+- **[GitHub Secrets](GITHUB_SECRETS_SETUP.md)** - Configure auto-build secrets
+- **[Command Reference](DEPLOYMENT_CHEATSHEET.md)** - Quick command reference
+
+---
+
 ## 🏗️ Project Structure
 
 ```

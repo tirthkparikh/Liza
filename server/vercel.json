@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "name": "liza-backend-server",
   "builds": [
     {
       "src": "server.js",
@@ -10,10 +11,46 @@
     {
       "src": "/api/(.*)",
       "dest": "server.js"
+    },
+    {
+      "src": "/uploads/(.*)",
+      "dest": "/uploads/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "server.js"
     }
   ],
   "env": {
-    "NODE_ENV": "production"
-  }
+    "NODE_ENV": "production",
+    "MONGODB_URI": "@mongodb_uri",
+    "JWT_SECRET": "@jwt_secret",
+    "EMAIL_USER": "@email_user",
+    "EMAIL_PASS": "@email_pass",
+    "LOVER_EMAIL": "@lover_email",
+    "CLOUDINARY_CLOUD_NAME": "@cloudinary_name",
+    "CLOUDINARY_API_KEY": "@cloudinary_key",
+    "CLOUDINARY_API_SECRET": "@cloudinary_secret",
+    "FRONTEND_URL": "@frontend_url",
+    "ADMIN_URL": "@admin_url"
+  },
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET,POST,PUT,DELETE,OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type,Authorization"
+        }
+      ]
+    }
+  ]
 }
-

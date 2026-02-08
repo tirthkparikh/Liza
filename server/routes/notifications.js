@@ -1,8 +1,66 @@
 import express from 'express'
 import Notification from '../models/Notification.js'
 import { authenticate } from '../middleware/auth.js'
+import { sendGameNotificationEmail, sendCallNotificationEmail, sendMessageNotificationEmail } from '../utils/email.js'
 
 const router = express.Router()
+
+// Store online status
+let adminOnline = false
+let loverOnline = false
+
+// Update status
+router.post('/status', (req, res) => {
+  const { userType, online } = req.body
+  if (userType === 'admin') {
+    adminOnline = online
+  } else if (userType === 'lover') {
+    loverOnline = online
+  }
+  res.json({ adminOnline, loverOnline })
+})
+
+// Get status
+router.get('/status', (req, res) => {
+  res.json({ adminOnline, loverOnline })
+})
+
+// Send email notification
+router.post('/send-email', async (req, res) => {
+  try {
+    const { type, gameType, message, callerName } = req.body
+    
+    const recipientEmail = process.env.LOVER_EMAIL || process.env.EMAIL_USER
+    if (!recipientEmail) {
+      return res.status(500).json({ error: 'No recipient email configured' })
+    }
+
+    let result
+    
+    switch (type) {
+      case 'game':
+        result = await sendGameNotificationEmail(recipientEmail, 'Liza', gameType, false)
+        break
+      case 'call':
+        result = await sendCallNotificationEmail(recipientEmail, callerName || 'Liza', 'video', false)
+        break
+      case 'message':
+        result = await sendMessageNotificationEmail(recipientEmail, 'Liza', message, false)
+        break
+      default:
+        return res.status(400).json({ error: 'Unknown notification type' })
+    }
+
+    if (result.success) {
+      res.json({ success: true, message: 'Email notification sent' })
+    } else {
+      res.status(500).json({ success: false, error: result.error })
+    }
+  } catch (error) {
+    console.error('Error sending email notification:', error)
+    res.status(500).json({ error: error.message })
+  }
+})
 
 // Get all notifications
 router.get('/', authenticate, async (req, res) => {

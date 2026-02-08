@@ -16,6 +16,8 @@ import DatePlanner from './components/DatePlanner'
 import RomanticCorner from './components/RomanticCorner'
 import LoveJar from './components/LoveJar'
 import LoveNotifications from './components/LoveNotifications'
+import Messages from './components/Messages'
+import NotificationToast from './components/NotificationToast'
 import './App.css'
 
 function App() {
@@ -36,6 +38,7 @@ function App() {
   return (
     <Router>
       {isAuthenticated && <LoveNotifications />}
+      {isAuthenticated && <NotificationToast />}
       <Routes>
         <Route 
           path="/login" 
@@ -96,6 +99,10 @@ function App() {
         <Route 
           path="/games/rps" 
           element={isAuthenticated ? <RockPaperScissors /> : <Navigate to="/login" />} 
+        />
+        <Route 
+          path="/messages" 
+          element={isAuthenticated ? <Messages /> : <Navigate to="/login" />} 
         />
       </Routes>
     </Router>

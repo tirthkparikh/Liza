@@ -9,8 +9,11 @@ import Dates from './components/Dates'
 import LoveJar from './components/LoveJar'
 import VideoCall from './components/VideoCall'
 import Letters from './components/Letters'
+import Messages from './components/Messages'
 import Games from './components/Games'
 import TicTacToe from './components/TicTacToe'
+// import ConnectFour from './components/ConnectFour'
+// import RockPaperScissors from './components/RockPaperScissors'
 import './App.css'
 
 const API_URL = import.meta.env.VITE_API_URL 
@@ -117,6 +120,14 @@ function App() {
           } 
         />
         <Route 
+          path="/messages" 
+          element={
+            isAuthenticated ? 
+            <Messages token={token} API_URL={API_URL} /> : 
+            <Navigate to="/login" />
+          } 
+        />
+        <Route 
           path="/games" 
           element={
             isAuthenticated ? 
@@ -132,6 +143,22 @@ function App() {
             <Navigate to="/login" />
           } 
         />
+        {/* <Route 
+          path="/games/connectfour" 
+          element={
+            isAuthenticated ? 
+            <ConnectFour token={token} API_URL={API_URL} /> : 
+            <Navigate to="/login" />
+          } 
+        /> */}
+        {/* <Route 
+          path="/games/rps" 
+          element={
+            isAuthenticated ? 
+            <RockPaperScissors token={token} API_URL={API_URL} /> : 
+            <Navigate to="/login" />
+          } 
+        /> */}
       </Routes>
     </Router>
   )
