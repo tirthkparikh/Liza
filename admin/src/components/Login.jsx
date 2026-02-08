@@ -6,6 +6,7 @@ import './Login.css'
 const Login = ({ onLogin, API_URL: propAPI_URL }) => {
   const RAW_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001'
 const API_BASE_URL = RAW_BASE_URL.replace(/\/$/, '')
+console.log(API_BASE_URL,RAW_BASE_URL);
   const API_URL = propAPI_URL || (API_BASE_URL ? `${API_BASE_URL}/api` : 'http://localhost:5001/api')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
