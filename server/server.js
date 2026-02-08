@@ -33,35 +33,45 @@ const __dirname = path.dirname(__filename)
 
 const app = express()
 const httpServer = createServer(app)
+// const io = new Server(httpServer, {
+//   cors: {
+//     origin: ['http://localhost:5173', 'http://localhost:5174'],
+//     methods: ['GET', 'POST']
+//   }
+// })
 const io = new Server(httpServer, {
   cors: {
-    origin: ['http://localhost:5173', 'http://localhost:5174'],
+    origin: '*',
     methods: ['GET', 'POST']
   }
 })
+
 const PORT = process.env.PORT || 5001
 
 // Middleware
-const allowedOrigins = [
-  process.env.FRONTEND_URL,
-  process.env.ADMIN_URL,
-  'http://localhost:5173',
-  'http://localhost:3001',
-  'http://localhost:5174'
-].filter(Boolean)
+// const allowedOrigins = [
+//   process.env.FRONTEND_URL,
+//   process.env.ADMIN_URL,
+//   'http://localhost:5173',
+//   'http://localhost:3001',
+//   'http://localhost:5174'
+// ].filter(Boolean)
 
-app.use(cors({
-  origin: (origin, callback) => {
-    // Allow requests with no origin (mobile apps, Postman, etc.)
-    if (!origin) return callback(null, true)
-    if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV === 'development') {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  },
-  credentials: true
-}))
+// app.use(cors({
+//   origin: (origin, callback) => {
+//     // Allow requests with no origin (mobile apps, Postman, etc.)
+//     if (!origin) return callback(null, true)
+//     if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV === 'development') {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS'))
+//     }
+//   },
+//   credentials: true
+// }))
+app.use(cors())
+app.options('*', cors())
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
