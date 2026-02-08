@@ -4,13 +4,19 @@ import axios from 'axios'
 import './Login.css'
 
 const Login = ({ onLogin, API_URL: propAPI_URL }) => {
-  const RAW_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001'
-// const API_BASE_URL = RAW_BASE_URL.replace(/\/$/, '') 
-const API_BASE_URL = RAW_BASE_URL.replace(/\/+$/, '')
+const RAW_URL =
+  propAPI_URL ||
+  import.meta.env.VITE_API_URL ||
+  'http://localhost:5001'
 
-console.log(API_BASE_URL,RAW_BASE_URL);
-  const API_URL = propAPI_URL || (API_BASE_URL ? `${API_BASE_URL}/api` : 'http://localhost:5001/api')
-  console.log(API_URL)
+const BASE_URL = RAW_URL.replace(/\/+$/, '')
+
+const API_URL = BASE_URL.endsWith('/api')
+  ? BASE_URL
+  : `${BASE_URL}/api`
+
+console.log({ propAPI_URL, RAW_URL, BASE_URL, API_URL })
+
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
