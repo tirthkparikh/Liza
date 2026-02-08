@@ -26,6 +26,6 @@
     }
   ],
   "env": {
-    "VITE_API_URL": "@liza_api_url"
+    "VITE_API_URL": "https://liza-production-6ebe.up.railway.app"
   }
 }
