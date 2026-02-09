@@ -16,9 +16,13 @@ import TicTacToe from './components/TicTacToe'
 // import RockPaperScissors from './components/RockPaperScissors'
 import './App.css'
 
-const API_URL = import.meta.env.VITE_API_URL 
-  ? `${import.meta.env.VITE_API_URL}/api`
-  : 'http://localhost:5001/api'
+const RAW_BASE_URL =
+  import.meta.env.VITE_API_URL || 'http://localhost:5001'
+
+const API_BASE_URL = RAW_BASE_URL.replace(/\/+$/, '')
+
+const API_URL = `${API_BASE_URL}/api`
+
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
